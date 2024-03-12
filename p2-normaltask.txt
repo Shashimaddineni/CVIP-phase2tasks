@@ -1,0 +1,210 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Student {
+    private int id;
+    private String name;
+    private String address;
+    private String contactNumber;
+
+    public Student(int id, String name, String address, String contactNumber) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.contactNumber = contactNumber;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+}
+
+
+class Course {
+    private int courseId;
+    private String courseName;
+    private String description;
+
+    public Course(int courseId, String courseName, String description) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.description = description;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+
+
+class Enrollment {
+    private int studentId;
+    private int courseId;
+
+    public Enrollment(int studentId, int courseId) {
+        this.studentId = studentId;
+        this.courseId = courseId;
+    }
+
+  
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+}
+
+
+class Grade {
+    private int studentId;
+    private int courseId;
+    private double grade;
+
+    public Grade(int studentId, int courseId, double grade) {
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.grade = grade;
+    }
+
+  
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+}
+
+
+class DatabaseManager {
+    private List<Student> students;
+    private List<Course> courses;
+    private List<Enrollment> enrollments;
+    private List<Grade> grades;
+
+    public DatabaseManager() {
+        students = new ArrayList<>();
+        courses = new ArrayList<>();
+        enrollments = new ArrayList<>();
+        grades = new ArrayList<>();
+    }
+
+public void addStudent(Student student)
+ {
+        students.add(student);
+  }
+
+  
+    public void addCourse(Course course) 
+{
+        courses.add(course);
+ }
+
+
+    public void enrollStudent(int studentId, int courseId)
+   {
+        enrollments.add(new Enrollment(studentId, courseId));
+    }
+
+   
+    public void addGrade(int studentId, int courseId, double grade) 
+   {
+        grades.add(new Grade(studentId, courseId, grade));
+    }
+
+   
+    public List<Student> getAllStudents() 
+    {
+        return students;
+    }
+
+ 
+    public List<Course> getAllCourses() 
+    {
+        return courses;
+    }
+
+
+    public List<Enrollment> getAllEnrollments()
+    {
+        return enrollments;
+    }
+
+
+    public List<Grade> getAllGrades() 
+    {
+        return grades;
+    }
+}
+
+public class StudentInformationSystem {
+    public static void main(String[] args) 
+{
+      
+        DatabaseManager dbManager = new DatabaseManager();
+       dbManager.addStudent(new Student(1, "Ram", "123 ms", "123-456-7890"));
+        dbManager.addStudent(new Student(2, "Rahul", "456 svm", "987-654-3210"));
+
+        dbManager.addCourse(new Course(101, "Mathematics", "real numbers"));
+        dbManager.addCourse(new Course(102, "English", "Literature and Composition"));
+
+        dbManager.enrollStudent(1, 101);         
+        dbManager.enrollStudent(2, 102); 
+
+        dbManager.addGrade(1, 101, 97.5); 
+        dbManager.addGrade(2, 102, 89.5); 
+
+        List<Student> allStudents = dbManager.getAllStudents();
+        System.out.println("All Students-");
+        for (Student student : allStudents) {
+            System.out.println("ID- " + student.getId() + ", Name- " + student.getName() + ", Add- " + student.getAddress() + ", Contact- " + student.getContactNumber());
+        }
+
+        List<Course> allCourses = dbManager.getAllCourses();
+        System.out.println("\nall Courses are");
+        for (Course course : allCourses) {
+            System.out.println("ID- " + course.getCourseId() + ", name- " + course.getCourseName() + ", Description= " + course.getDescription());
+        }
+
+        List<Enrollment> allEnrollments = dbManager.getAllEnrollments();
+        System.out.println("\nAll Enrollments:");
+        for (Enrollment enrollment : allEnrollments) {
+            System.out.println("Student ID- " + enrollment.getStudentId() + ", course id- " + enrollment.getCourseId());
+        }
+
+        List<Grade> allGrades = dbManager.getAllGrades();
+        System.out.println("\n all Grades are");
+        for (Grade grade : allGrades) {
+            System.out.println("Student ID- " + grade.getStudentId() + ", course id- " + grade.getCourseId() + ", Grade- " + grade.getGrade());
+        }
+    }
+}
